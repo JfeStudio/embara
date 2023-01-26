@@ -20,6 +20,12 @@ Route::get('/', function () {
 Route::get('/pages', function () {
     return view('pages.index');
 })->name('pages.index');
+Route::get('login', function () {
+    return view('login');
+})->name('login');
+Route::get('/pages/checkout', function () {
+    return view('pages.checkout');
+})->name('pages.checkout');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
