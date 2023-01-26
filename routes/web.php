@@ -26,6 +26,9 @@ Route::get('login', function () {
 Route::get('/pages/checkout', function () {
     return view('pages.checkout');
 })->name('pages.checkout');
+Route::get('/pages/success-checkout', function () {
+    return view('pages.success-checkout');
+})->name('pages.success-checkout');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

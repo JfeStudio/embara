@@ -65,7 +65,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="/success_checkout.html" type="submit" class="w-100 btn btn-primary">Pay Now</a>
+                                <a href="{{ route('pages.success-checkout') }}" type="submit"
+                                    class="w-100 btn btn-primary">Pay Now</a>
                                 <p class="text-center subheader mt-4">
                                     <img src="{{ asset('template') }}/assets/images/ic_secure.svg" alt=""> Your
                                     payment is secure and
