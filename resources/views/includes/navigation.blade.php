@@ -24,7 +24,7 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <a href="#" class="btn btn-master btn-secondary me-3">
+                <a href="{{ route('sign-in') }}" class="btn btn-master btn-secondary me-3">
                     Sign In
                 </a>
                 <a href="#" class="btn btn-master btn-primary">
