@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,15 +21,18 @@ Route::get('/', function () {
 Route::get('/pages', function () {
     return view('pages.index');
 })->name('pages.index');
-Route::get('login', function () {
-    return view('login');
-})->name('login');
+// Route::get('login', function () {
+//     return view('login');
+// })->name('login');
 Route::get('/pages/checkout', function () {
     return view('pages.checkout');
 })->name('pages.checkout');
 Route::get('/pages/success-checkout', function () {
     return view('pages.success-checkout');
 })->name('pages.success-checkout');
+// socialite route
+Route::get('sign-in-google', [UserController::class, 'google'])->name('auth.sign-in');
+Route::get('/auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('auth.sign-in.callback');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

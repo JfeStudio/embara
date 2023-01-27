@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('pages.index') }}">
             <img src="{{ asset('template') }}/assets/images/logo.png" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -24,12 +24,25 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <a href="{{ route('sign-in') }}" class="btn btn-master btn-secondary me-3">
-                    Sign In
-                </a>
-                <a href="#" class="btn btn-master btn-primary">
-                    Sign Up
-                </a>
+                @guest
+                    <a href="{{ route('sign-in') }}" class="btn btn-master btn-secondary me-3">
+                        Sign In
+                    </a>
+                    <a href="#" class="btn btn-master btn-primary">
+                        Sign Up
+                    </a>
+                @else
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                @endguest
             </div>
         </div>
     </div>
