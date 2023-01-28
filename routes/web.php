@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -24,12 +25,14 @@ Route::get('/pages', function () {
 // Route::get('login', function () {
 //     return view('login');
 // })->name('login');
-Route::get('/pages/checkout', function () {
-    return view('pages.checkout');
-})->name('pages.checkout');
-Route::get('/pages/success-checkout', function () {
-    return view('pages.success-checkout');
-})->name('pages.success-checkout');
+// Route::get('/pages/checkout/{camp:slug}', function () {
+//     return view('pages.checkout');
+// })->name('pages.checkout');
+Route::middleware('auth')->group(function() {
+    Route::get('/checkout/success-checkout', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout.create');
+    Route::post('/checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
+});
 // socialite route
 Route::get('sign-in-google', [UserController::class, 'google'])->name('auth.sign-in');
 Route::get('/auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('auth.sign-in.callback');
