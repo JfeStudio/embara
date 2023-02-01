@@ -26,6 +26,10 @@ class CheckoutController extends Controller
      */
     public function create(Camp $camp)
     {
+        // dd($camp->IsRegistered);
+        if ($camp->isRegistered) {
+            return redirect('/dashboard')->with('errors', "You already registered on {$camp->title} camp.");
+        }
         return view('checkout.create', compact('camp'));
     }
 

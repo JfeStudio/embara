@@ -1,7 +1,13 @@
 @extends('layouts.app-layout')
 @section('content')
-    <section class="dashboard my-5">
-        <div class="container">
+    <div class="container">
+        <section class="dashboard my-5">
+            @if (Session::has('errors'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Heyy Dude!!</strong> {{ Session::get('errors') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="row text-left">
                 <div class=" col-lg-12 col-12 header-wrap mt-4">
                     <p class="story">
@@ -52,6 +58,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+    </div>
     </section>
 @endsection
