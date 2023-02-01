@@ -37,8 +37,8 @@
                             {{ Auth::user()->name }}
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="#">Setting</a></li>
                             <li><a class="dropdown-item" href="#">Logout</a></li>
                         </ul>
                     </div>
