@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\Checkout\CheckoutRequest;
 use App\Models\Camp;
 use App\Models\Checkout;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class CheckoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Camp $camp)
+    public function store(CheckoutRequest $request, Camp $camp)
     {
         // ambil semua request
         $camps = $request->all();
@@ -50,9 +51,9 @@ class CheckoutController extends Controller
         $camps['user_id'] = Auth::id();
         // kita juga butuh id camp, 1 = gila belajar, 2 = baru belajar
         $camps['camp_id'] = $camp->id;
-        // dd($camps, $camps['user_id'], $camps['camp_id']);
         // update user data
         $user = Auth::user();
+        // dd($camps, $camps['user_id'], $camps['camp_id'], $user);
         $user->email = $camps['email'];
         $user->name = $camps['name'];
         $user->occupation = $camps['occupation'];

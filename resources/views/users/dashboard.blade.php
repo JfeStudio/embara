@@ -11,7 +11,7 @@
             <div class="row text-left">
                 <div class=" col-lg-12 col-12 header-wrap mt-4">
                     <p class="story">
-                        DASHBOARD
+                        DASHBOARD {{ Auth::user()->name }} | {{ Auth::user()->email }}
                     </p>
                     <h2 class="primary-header ">
                         My Bootcamps
@@ -53,7 +53,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <p>tidak ada gambar</p>
+                            <p>tidak ada data</p>
                         @endforelse
                     </tbody>
                 </table>
