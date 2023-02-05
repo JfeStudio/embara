@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\Checkout\CheckoutRequest;
+use App\Mail\Checkout\AfterCheckout;
 use App\Models\Camp;
 use App\Models\Checkout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -59,7 +61,10 @@ class CheckoutController extends Controller
         $user->occupation = $camps['occupation'];
         $user->save();
 
-        Checkout::create($camps);
+        $checkout = Checkout::create($camps);
+
+        // sending email
+        Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
         return to_route('checkout.success');
         // dd($camps);
     }
