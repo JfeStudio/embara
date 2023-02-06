@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         {{-- latest --}}
-        <div class='mt-4'>
+        <div class='mt-4 mb-3'>
             <p class="story">
                 DASHBOARD {{ Auth::user()->name }} | {{ Auth::user()->email }}
             </p>
@@ -10,8 +10,14 @@
                 My Bootcamps
             </h2>
         </div>
+        @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Heyy Dude!!</strong> {{ Session::get('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <table class="table">
-            <thead>
+            <thead class='table-dark'>
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Name</th>
@@ -27,7 +33,7 @@
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <th scope="col">{{ $checkout->User->name }}</th>
-                        <td>{{ $checkout->Camp->title }}</td>
+                        <td>{{ $checkout->Camp->title }} (ID : {{ $checkout->id }})</td>
                         <td>{{ $checkout->created_at->format('d M, Y') }}</td>
                         <td>${{ $checkout->Camp->price }}k</td>
                         <td>
@@ -38,10 +44,15 @@
                             @endif
                         </td>
                         <td>
-                            <a href="https://wa.me/6285856752144?text=Hi, saya ingin bertanya tentang kelas {{ $checkout->Camp->title }}"
-                                class="btn btn-primary">
-                                Contact Support
-                            </a>
+                            @if (!$checkout->is_paid)
+                                <form onsubmit="return confirm('Apakah anda yakin user sudah bayar?')"
+                                    action="{{ route('admin.checkout.update', $checkout->id) }}" method="post">
+                                    @csrf
+                                    <button class='btn btn-primary btn-sm' type="submit">Send to Paid</button>
+                                </form>
+                            @else
+                                -
+                            @endif
                         </td>
                     </tr>
                 @empty
