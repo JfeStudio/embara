@@ -31,7 +31,7 @@ class CheckoutController extends Controller
     {
         // dd($camp->IsRegistered);
         if ($camp->isRegistered) {
-            return redirect('/dashboard')->with('errors', "You already registered on {$camp->title} camp.");
+            return to_route('users.dashboard')->with('errors', "You already registered on {$camp->title} camp.");
         }
         return view('checkout.create', compact('camp'));
     }
