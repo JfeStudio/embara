@@ -32,23 +32,24 @@ Route::get('/pages', function () {
 //     return view('pages.checkout');
 // })->name('pages.checkout');
 Route::middleware('auth')->group(function() {
-    Route::get('/checkout/success-checkout', [CheckoutController::class, 'success'])->name('checkout.success');
-    Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout.create');
-    Route::post('/checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/success-checkout', [CheckoutController::class, 'success'])->name('checkout.success')->middleware('ensureUserRole:user');
+    Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout.create')->middleware('ensureUserRole:user');
+    Route::post('/checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('ensureUserRole:user');
+    // dashboard
+    Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+    // dashboard user
+    Route::prefix('users/dashboard')->namespace('User')->name('users.')->middleware('ensureUserRole:user')->group(function() {
+        Route::get('/', [UserDashboard::class , 'index'])->name('dashboard');
+    });
+    // dashboard admin
+    Route::prefix('admin/dashboard')->namespace('Admin')->name('admin.')->middleware('ensureUserRole:admin')->group(function() {
+        Route::get('/', [AdminDashboard::class , 'index'])->name('dashboard');
+    });
 });
 // socialite route
 Route::get('sign-in-google', [UserController::class, 'google'])->name('auth.sign-in');
 Route::get('/auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('auth.sign-in.callback');
-// dashboard
-Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-// dashboard user
-Route::prefix('user/dashboard')->namespace('User')->name('users.')->group(function() {
-    Route::get('/', [UserDashboard::class , 'index'])->name('dashboard');
-});
-// dashboard admin
-Route::prefix('admin/dashboard')->namespace('Admin')->name('admin.')->group(function() {
-    Route::get('/', [AdminDashboard::class , 'index'])->name('dashboard');
-});
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
