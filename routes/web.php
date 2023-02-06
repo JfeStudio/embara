@@ -4,6 +4,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\User\DashboardController as UserDashboard;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,8 +39,16 @@ Route::middleware('auth')->group(function() {
 // socialite route
 Route::get('sign-in-google', [UserController::class, 'google'])->name('auth.sign-in');
 Route::get('/auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('auth.sign-in.callback');
-// dashboard user
+// dashboard
 Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+// dashboard user
+Route::prefix('user/dashboard')->namespace('User')->name('users.')->group(function() {
+    Route::get('/', [UserDashboard::class , 'index'])->name('dashboard');
+});
+// dashboard admin
+Route::prefix('admin/dashboard')->namespace('Admin')->name('admin.')->group(function() {
+    Route::get('/', [AdminDashboard::class , 'index'])->name('dashboard');
+});
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

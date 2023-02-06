@@ -33,8 +33,13 @@
                     </a>
                 @else
                     <div class='d-flex align-items-center'>
-                        <img style="width: 35px;height: 35px;border-radius: 50%;" class='avatar'
-                            src="{{ Auth::user()->avatar }}" alt="">
+                        @if (Auth::user()->avatar)
+                            <img style="width: 35px;height: 35px;border-radius: 50%;" class='avatar'
+                                src="{{ Auth::user()->avatar }}" alt="images">
+                        @else
+                            <img style="width: 35px;height: 35px;border-radius: 50%;" class='avatar'
+                                src="https://ui-avatars.com/api/?name=Admin" alt="images">
+                        @endif
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">

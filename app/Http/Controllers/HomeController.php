@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function dashboard(){
-        $checkouts = Checkout::with('Camp')->whereUserId(Auth::id())->orderBy('id', 'DESC')->get();
-        // dd($checkouts);
-        // exit();
-        return view('users.dashboard', compact('checkouts'));
+        switch (Auth::user()->is_admin) {
+            case true:
+                return to_route('admin.dashboard');
+                break;
+                default:
+                return to_route('users.dashboard');
+                break;
+        }
     }
 }
