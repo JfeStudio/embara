@@ -33,7 +33,7 @@
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <th scope="col">{{ $checkout->User->name }}</th>
-                        <td>{{ $checkout->Camp->title }} (ID : {{ $checkout->id }})</td>
+                        <td>{{ $checkout->Camp->title }} (ID : {{ $checkout->camp_id }})</td>
                         <td>{{ $checkout->created_at->format('d M, Y') }}</td>
                         <td>${{ $checkout->Camp->price }}k</td>
                         <td>
